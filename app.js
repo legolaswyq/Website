@@ -12,7 +12,18 @@ const app = express();
 middleware(app);
 
 //fire route
-route(app);
+// route(app);
+
+//load login module
+const home = require('./routers/home')
+app.use('/', home);
+app.use('/home', home);
+//load login module
+const login = require('./routers/login')
+app.use('/login', login);
+//load reg module
+const register = require('./routers/reg')
+app.use('/reg', register);
 
 //listen to port 3000
 app.listen(3000, (err) => {
