@@ -2,7 +2,6 @@
 const assert = require('assert');
 const express = require('express');
 const middleware = require('./controllers/middleware');
-const route = require('./controllers/route');
 
 
 //init app

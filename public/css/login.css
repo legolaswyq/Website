@@ -28,3 +28,7 @@ form>div{
     flex-direction: row;
     justify-content: space-between;
 }
+
+.errorMessage{
+    color: red;
+}

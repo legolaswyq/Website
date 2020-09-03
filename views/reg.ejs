@@ -13,17 +13,25 @@
         <form action="/reg" method="POST" class="reg-form">
             <div class="username">
                 <div><label for="username" >Username</label></div>
-                <div> <input type="text" name="username" placeholder='name' id="username"></div>
+                <div> <input type="text" name="username" placeholder='min length 5' id="username"></div>
             </div>
             
             <div class="email">
                 <div><label for="email">Email</label></div>
-                <div><input type="text" name="email" placeholder='email' id="email"></div>
+                <div><input type="email" name="email" placeholder='a valid email' id="email"></div>
             </div>
+
+            
             
             <div class="password">
                 <div><label for="password">Password</label></div>
-                <div><input type="password" name="password" placeholder='password' id="password"></div>
+                <div><input type="password" name="password" placeholder='min length 8' id="password"></div>
+            </div>
+
+            <div class="errorMessage">
+                <% if (msg.length > 0) { %>
+                    <%= msg %> 
+                <% } %>
             </div>
             
             <div class="submit-button">
