@@ -2,6 +2,9 @@ const express = require('express');
 const md5 = require('md5');
 const AccountModel = require('../models/account');
 const router = express.Router();
+const format = require('date-format');
+
+
 
 router.get('/', (req, res) => {
     let username = req.session.username;
@@ -10,12 +13,11 @@ router.get('/', (req, res) => {
         username: username
     }
 
-    console.log(username);
-
     if (username) {
         res.render('index', msg);
         return;
     }
+    console.log();
 
     res.render('login', msg);
 });
@@ -30,7 +32,7 @@ router.post('/', (req, res) => {
     AccountModel.find({ username: data.username }, (err, docs) => {
         let msg = {
             error: null,
-            username: null
+            username: undefined
         };
         if (err) {
             msg.error = 'Error connecting to database';
