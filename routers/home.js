@@ -3,11 +3,19 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render('index');
+    let msg = {
+        error: null,
+        username: req.session.username
+    }
+    res.render('index',msg);
 });
 
 router.post('/', (req, res) => {
-    res.render('index');
+    let msg = {
+        error: null,
+        username: req.session.username
+    }
+    res.render('index',msg);
 })
 
 module.exports = router;

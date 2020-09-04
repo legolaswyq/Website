@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/header.css">
+    <%- include('bootstrapHeader.ejs')  %> 
     <title>Document</title>
 </head>
 <body>
-    <div class="header">
-        <div class="login">
-            <a href="/login">Login</a>
+    <div class="jumbotron jumbotron-fluid p-3 mb-0">
+        
+        <div class="container-fluid d-flex justify-content-end">
+            <% if (username !== undefined) { %>
+                <a href="" class="btn btn-success disabled m-1">Hi <%= username %>! </a>
+                <a href="/login/logout" class="btn btn-primary m-1">logout</a>
+            <% }else{ %>
+                <a href="/login" class="btn btn-primary m-1">Login</a>
+                <a href="/reg" class="btn btn-primary m-1">Register</a>
+            <% } %> 
         </div>
-
-        <div class="register">
-            <a href="/reg">Register</a>
+        <div class="container text-center">
+            <h1>Welcomt to Treehole </h1>
+            <p>Share your store with others..</p>
         </div>
+        
     </div>
 </body>
 </html>

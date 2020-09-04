@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/login.css">
     <title>Register</title>
 </head>
 <body>
     <%- include('header.ejs')  %> 
     <%- include('nav.ejs')  %> 
-    <div class="form">
-        <form action="/reg" method="POST" class="reg-form">
-            <div class="username">
-                <div><label for="username" >Username</label></div>
-                <div> <input type="text" name="username" placeholder='min length 5' id="username"></div>
-            </div>
-            
-            <div class="email">
-                <div><label for="email">Email</label></div>
-                <div><input type="email" name="email" placeholder='a valid email' id="email"></div>
-            </div>
+    <div class="container w-25 ">
+        <div class="form">
+            <form action="/reg" method="POST" class="reg-form">
+                <div class="form-group">
+                    <label for="email">Username:</label>
+                    <input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
+                </div>
 
-            <div class="password">
-                <div><label for="password">Password</label></div>
-                <div><input type="password" name="password" placeholder='min length 8' id="password"></div>
-            </div>
-
-            <div class="errorMessage">
-                <% if (error !== null) { %>
-                    <%= error %> 
-                <% } %>
-            </div>
-            
-            <div class="submit-button">
-                <input type="submit" value="Register">
-            </div>
-        </form>
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter email" id="email">
+                </div>
+    
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd">
+                </div>
+    
+                <div class="errorMessage text-danger">
+                    <% if (error !== null) { %>
+                        <%= error %> 
+                    <% } %>
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
     </div>
     
 </body>

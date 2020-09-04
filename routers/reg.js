@@ -8,7 +8,18 @@ const assert = require('assert');
 const md5 = require('md5');
 
 router.get('/', (req, res) => {
-    res.render('reg', {error: null});
+    let username = req.session.username;
+    let msg = {
+        error: null,
+        username: username
+    }
+
+    if (username) {
+        res.render('index', msg);
+        return;
+    }
+
+    res.render('reg', msg);
 })
 
 router.post('/', (req, res) => {
@@ -20,29 +31,32 @@ router.post('/', (req, res) => {
     }
     //check database if has same username
     AccountModel.find({ username: data.username }, function (err, docs) {
-        let errorMsg;
+        let msg = {
+            error: null,
+            username: null
+        }
         if (err) {
-            errorMsg = 'Error connect to database';
+            msg.error = 'Error connect to database';
             console.log(err);
-            res.render('reg',{error: errorMsg})
+            res.render('reg',msg)
             return;
         }
         //check username is duplicated 
         if (docs.length > 0) {
-            errorMsg = 'Username already exist';
-            res.render('reg', { error: errorMsg });
+            msg.error = 'Username already exist';
+            res.render('reg',msg);
             return;
         }
         //verify data
         if (!isValidEmail(data.email)) {
-            errorMsg = 'Invalid email address';
-            res.render('reg', { error: errorMsg });
+            msg.error = 'Invalid email address';
+            res.render('reg',msg);
             return;
         }
         //save data into database
         let newAccount = new AccountModel(data);
         newAccount.save();
-        res.render('login',{error:null})
+        res.render('login',msg)
     
     })
 

@@ -4,7 +4,20 @@ const AccountModel = require('../models/account');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render('login',{error:null});
+    let username = req.session.username;
+    let msg = {
+        error: null,
+        username: username
+    }
+
+    console.log(username);
+
+    if (username) {
+        res.render('index', msg);
+        return;
+    }
+
+    res.render('login', msg);
 });
 
 router.post('/', (req, res) => {
@@ -15,31 +28,44 @@ router.post('/', (req, res) => {
     }
     //get account detail from database
     AccountModel.find({ username: data.username }, (err, docs) => {
-        let errorMsg;
+        let msg = {
+            error: null,
+            username: null
+        };
         if (err) {
-            errorMsg = 'Error connecting to database';
+            msg.error = 'Error connecting to database';
             console.log(err);
-            res.render('login', { error: errorMsg });
+            res.render('login', msg);
             return;
         }
 
         if (docs.length == 0) {
-            errorMsg = 'Username is not exist';
-            res.render('login', { error: errorMsg });
+            msg.error = 'Username is not exist';
+            res.render('login', msg);
             return;
         }
         
 
         if (docs[0].password != data.password) {
-            errorMsg = 'Password is not correct';
-            res.render('login', { error: errorMsg });
+            msg.error = 'Password is not correct';
+            res.render('login', msg);
             return;
         }
 
         req.session.username = data.username;
-        res.render('index');
+        msg.username = data.username;
+        res.render('index',msg);
     })
     
+})
+
+router.get('/logout', (req, res) => {
+    req.session.username = undefined;
+    let msg = {
+        error: null,
+        username: undefined
+    }
+    res.render('login', msg);
 })
 
 
