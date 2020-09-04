@@ -8,70 +8,49 @@ const assert = require('assert');
 const md5 = require('md5');
 
 router.get('/', (req, res) => {
-    res.render('reg');
+    res.render('reg', {error: null});
 })
 
-router.post('/', async (req, res) => {
-    //save data into database
-    let data = req.body;
-    if (await verifyData(data)) {
-        addNewAccountToDB(data);
-        res.render('login');
-    } else {
-        let errorMessage = `invalid username or password`;
-        res.render('reg',{msg:errorMessage});
+router.post('/', (req, res) => {
+    //get input
+    let data = {
+        username: req.body.username,
+        email: req.body.email,
+        password: md5(req.body.password)
     }
+    //check database if has same username
+    AccountModel.find({ username: data.username }, function (err, docs) {
+        let errorMsg;
+        if (err) {
+            errorMsg = 'Error connect to database';
+            console.log(err);
+            res.render('reg',{error: errorMsg})
+            return;
+        }
+        //check username is duplicated 
+        if (docs.length > 0) {
+            errorMsg = 'Username already exist';
+            res.render('reg', { error: errorMsg });
+            return;
+        }
+        //verify data
+        if (!isValidEmail(data.email)) {
+            errorMsg = 'Invalid email address';
+            res.render('reg', { error: errorMsg });
+            return;
+        }
+        //save data into database
+        let newAccount = new AccountModel(data);
+        newAccount.save();
+        res.render('login',{error:null})
+    
+    })
+
 })
 
-
-function addNewAccountToDB (data) {
-    let newAccount = new AccountModel({
-        username: data.username,
-        email: data.email,
-        password: md5Password(data.password)
-    });
-    newAccount.save(function  (err) {
-        assert.equal(null, err);
-    });
-}
-
-async function verifyData (data) {
-    let isDataValid = false;
-    if (verifyEmail(data.email) && await verifyName(data.username) && verifyPassword(data.password)) {
-        isDataValid = true;
-    }
-    return isDataValid;
-}
-
-
-function verifyEmail (email) {
+function isValidEmail(email) {
     const emailRex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return emailRex.test(email);
-}
-
-async function verifyName(username) {
-    let isValid = true;
-    //check length
-    if (username.length < 5) {
-        isValid = false;
-        return isValid;
-    }
-    //check no duplicated username in db
-    await AccountModel.find({ username: username }, (err,result) => {
-        assert.equal(null, err);
-        if (result.length > 0) {
-            isValid = false;
-        }
-    })
-    return isValid;
-}
-
-function verifyPassword (password) {
-    return password.length >= 8;
-}
-
-function md5Password (password) {
-    return md5(password);
 }
 
 module.exports = router;

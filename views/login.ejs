@@ -20,6 +20,12 @@
                 <div><label for="password">Password</label></div>
                 <div><input type="password" name="password" placeholder='password' id="password"></div>
             </div>
+
+            <div class="error">
+                <% if (error !== null) { %>
+                    <%= error %> 
+                <% } %>
+            </div>
             
             <div class="Login-button">
                 <input type="submit" value="Login">
