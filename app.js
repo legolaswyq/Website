@@ -24,6 +24,9 @@ app.use('/login', login);
 //load reg module
 const register = require('./routers/reg')
 app.use('/reg', register);
+//publish
+const publish = require('./routers/publish')
+app.use('/publish', publish);
 
 //listen to port 3000
 app.listen(3000, (err) => {

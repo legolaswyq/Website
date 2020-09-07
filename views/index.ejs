@@ -14,14 +14,25 @@
         </div>
 
         <div class="body d-flex flex-column">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let i = 0; i < articles.length; i++ ) { %>
+                        <tr>
+                            <td><%= articles[i].title %></td>
+                            <td><%= articles[i].username %></td>
+                            <td><%= articles[i].date %></td>
+                        </tr>   
+                    <% } %>
+                </tbody>
+            </table>
             
-            <% for( let i = 0; i < articles.length; i++ ) { %>
-                <div>
-                    <h3 class="text-center"><%= articles[i].title %> </h3>
-                    <h4><%= articles[i].username %><%= articles[i].date %></h4>
-                    <p><%= articles[i].content %></p>
-                </div>
-            <% } %>
         </div>
 
         <div class="page">

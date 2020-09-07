@@ -14,8 +14,12 @@ const ArticleSchema = mongoose.Schema({
         require: true
     },
     date: {
-        type: Date,
+        type: String,
         require: true
+    },
+    id: {
+        type: Number,
+        require:true
     }
 });
 
