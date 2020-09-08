@@ -19,7 +19,7 @@ const ArticleSchema = mongoose.Schema({
     },
     id: {
         type: Number,
-        require:true
+        require: true,
     }
 });
 

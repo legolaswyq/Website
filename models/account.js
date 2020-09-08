@@ -1,10 +1,12 @@
 //modify account collection
 const mongoose = require('./db');
+mongoose.set('useCreateIndex', true);
 
 const AccountSchema = mongoose.Schema({
     username: {
         type: String,
-        require: true
+        require: true,
+        unique: true
     },
     email: {
         type: String,
@@ -16,6 +18,8 @@ const AccountSchema = mongoose.Schema({
     }
 });
 
-const AccountModel = mongoose.model('AccountModel', AccountSchema,'account');
+const AccountModel = mongoose.model('AccountModel', AccountSchema, 'account');
+
+
 
 module.exports = AccountModel;
