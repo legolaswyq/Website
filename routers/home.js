@@ -6,33 +6,13 @@ const AccountModel = require('../models/account');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    let msg = {
-        error: null,
-        username: req.session.username,
-        articles: null,
-        count: null,
-        currentPage: 1
-    }
-
-    ArticleModel.countDocuments((err, count) => {
+    ArticleModel.find().sort({ 'id': -1 }).limit(1).exec((err, docs) => {
         if (err) {
             console.log(err);
             return;
         }
-        msg.count = count;
-
-        ArticleModel.
-        find().
-        limit(10).
-        sort({ "id": -1 }).
-        exec((err, docs) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            msg.articles = docs;
-            res.render('index', msg);
-        });
+        req.session.startPoint = docs[0].id;
+        res.redirect('/page/1');
     })
 });
 
@@ -64,12 +44,15 @@ router.get('/articles/id=:id', (req, res) => {
 })
 
 router.get('/page/:currentPage', (req, res) => {
+
+    let currentPage = req.params['currentPage'];
+
     let msg = {
         error: null,
         username: req.session.username,
         articles: null,
         count: null,
-        currentPage: req.params['currentPage']
+        currentPage: currentPage
     }
 
     ArticleModel.countDocuments((err, count) => {
@@ -78,19 +61,22 @@ router.get('/page/:currentPage', (req, res) => {
             return;
         }
         msg.count = count;
-
+        
         ArticleModel.
-        find().
-        limit(10).
-        sort({ "id": -1 }).
-        exec((err, docs) => {
+            find({ "id": { $lte: req.session.startPoint } }).
+            limit(10).
+            sort({ "id": -1 }).
+            skip((currentPage-1) * 10).
+            exec((err, docs) => {
             if (err) {
                 console.log(err);
                 return;
             }
             msg.articles = docs;
             res.render('index', msg);
-        });
+            });
+
+    
     })
 });
 module.exports = router;

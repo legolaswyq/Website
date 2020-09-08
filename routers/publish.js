@@ -32,7 +32,6 @@ router.post('/', (req, res) => {
         res.redirect('/');
     });
 
-
 })
 
 function add200Ariticle() {

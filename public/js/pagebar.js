@@ -31,7 +31,6 @@ function generatePagination() {
 function createLi(href, content) {
     let li = document.createElement('li');
     li.classList.add("page-item");
-    li.classList.add("w-50");
     let a = document.createElement('a');
     a.classList.add("page-link");
     a.href = href;
