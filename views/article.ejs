@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <%- include('header.ejs')  %> 
+    <%- include('nav.ejs')  %> 
+    <div class="container">
+        <h2 class="text-center"><%= article.title %> </h2>
+        <br>
+        <div class="d-flex justify-content-between">
+            <div class="author"><h5><%= article.username %></h5></div>
+            <div class="date"><%= article.date %></div>
+        </div>
+        <br>
+        <p><%= article.content %> </p>
+    </div>
+
+</body>
+</html>

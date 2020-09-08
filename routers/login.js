@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
         res.render('index', msg);
         return;
     }
-    console.log();
 
     res.render('login', msg);
 });
@@ -69,6 +68,8 @@ router.get('/logout', (req, res) => {
     }
     res.render('login', msg);
 })
+
+
 
 
 module.exports = router;

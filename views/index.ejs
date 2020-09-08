@@ -25,7 +25,7 @@
                 <tbody>
                     <% for( let i = 0; i < articles.length; i++ ) { %>
                         <tr>
-                            <td><a href=""><%= articles[i].title %></a></td>
+                            <td><a href="/home/articles/id=<%= articles[i].id %> "><%= articles[i].title %></a></td>
                             <td><%= articles[i].username %></td>
                             <td><%= articles[i].date %></td>
                         </tr>   
@@ -35,15 +35,9 @@
             
         </div>
 
-        <div class="page">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </div>
+        
+
+        <%- include('pagebar', {count: count})  %> 
     </div>
 
 </body>
