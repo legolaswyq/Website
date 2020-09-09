@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 //require database AccountModel
 const ArticleModel = require('../models/article');
-const { requireLogin } = require('../controllers/author');
+const { requireLogin,setArticle, setMenu } = require('../controllers/author');
 
 router.get('/',requireLogin, (req, res) => {
     res.redirect('/yourArticles/page/1')
@@ -17,11 +17,12 @@ router.post('/', (req, res) => {
     res.render('yourArticles', msg);
 })
 
-router.get('/articles/id=:id', (req, res) => {
+router.get('/articles/id=:id',setArticle,setMenu, (req, res) => {
     let id = req.params['id'];
     let data = {
         username: req.session.username,
-        article: null
+        article: null,
+        menu: req.session.menu
     }
     
     ArticleModel.
@@ -72,6 +73,9 @@ router.get('/page/:currentPage', (req, res) => {
     
     })
 });
+
+
+
 
 
 module.exports = router;

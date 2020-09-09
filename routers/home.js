@@ -1,11 +1,11 @@
 const express = require('express');
 const ArticleModel = require('../models/article');
 const AccountModel = require('../models/account');
-
+const { requireLogin,setArticle, setMenu } = require('../controllers/author');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/',setMenu, (req, res) => {
     ArticleModel.find().sort({ 'id': -1 }).limit(1).exec((err, docs) => {
         if (err) {
             console.log(err);
@@ -24,11 +24,12 @@ router.post('/', (req, res) => {
     res.render('index', msg);
 })
 
-router.get('/articles/id=:id', (req, res) => {
+router.get('/articles/id=:id',setMenu, (req, res) => {
     let id = req.params['id'];
     let data = {
         username: req.session.username,
-        article: null
+        article: null,
+        menu: req.session.menu
     }
     
     ArticleModel.

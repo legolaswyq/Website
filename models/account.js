@@ -25,15 +25,15 @@ const AccountSchema = mongoose.Schema({
 
 const AccountModel = mongoose.model('AccountModel', AccountSchema, 'account');
 
-let rootUser = {
-    username: 'root',
-    email: 'root@gamil.com',
-    password: md5('123'),
-    role: 'admin'
-}
+// let rootUser = {
+//     username: 'root',
+//     email: 'root@gamil.com',
+//     password: md5('123'),
+//     role: 'admin'
+// }
 
-let root = new AccountModel(rootUser);
-root.save();
+// let root = new AccountModel(rootUser);
+// root.save();
 
 
 module.exports = AccountModel;

@@ -14,10 +14,15 @@
         <div class="d-flex justify-content-between">
             <div class="author"><h5><%= article.username %></h5></div>
             <div class="date"><%= article.date %></div>
+            <div class="hide">
+                <a href="" class="m-3">Modify</a>
+                <a href="">Delete</a>
+            </div>
         </div>
         <br>
         <p><%= article.content %> </p>
     </div>
-
+    <div class="menu d-none"><%= menu %></div>
+    <script src="/js/article.js"></script>
 </body>
 </html>

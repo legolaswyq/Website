@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
         }
 
         req.session.username = data.username;
-        req.session.role = data.role;
+        req.session.role = docs[0].role;
         msg.username = data.username;
         res.redirect('/');
     })
@@ -63,6 +63,7 @@ router.post('/', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.session.username = undefined;
+    req.session.menu = undefined;
     let msg = {
         error: null,
         username: undefined
