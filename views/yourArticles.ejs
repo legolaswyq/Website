@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <%- include('header.ejs')  %> 
+    <%- include('nav.ejs')  %> 
+    <div class="container d-flex justify-content-center flex-column">
+        <div class=" text-center">
+            <h2>Story</h2>
+        </div>
+
+        <div class="body d-flex flex-column">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let i = 0; i < articles.length; i++ ) { %>
+                        <tr>
+                            <td><a href="/yourArticles/articles/id=<%= articles[i].id %> "><%= articles[i].title %></a></td>
+                            <td><%= articles[i].username %></td>
+                            <td><%= articles[i].date %></td>
+                        </tr>   
+                    <% } %>
+                </tbody>
+            </table>
+            
+        </div>
+
+        <%- include('pagebarYourArticles', {count: count})  %> 
+    </div>
+
+</body>
+</html>

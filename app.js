@@ -27,6 +27,9 @@ app.use('/reg', register);
 //publish
 const publish = require('./routers/publish')
 app.use('/publish', publish);
+//your article
+const yourArticles = require('./routers/yourArticles')
+app.use('/yourArticles', yourArticles);
 
 //listen to port 3000
 app.listen(3000, (err) => {

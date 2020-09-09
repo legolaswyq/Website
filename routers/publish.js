@@ -3,15 +3,16 @@ const router = express.Router();
 const ArticleModel = require('../models/article');
 const AccountModel = require('../models/account');
 const format = require('dateformat');
+const { requireLogin } = require('../controllers/author');
 
-router.get('/', (req, res) => {
+router.get('/',requireLogin, (req, res) => {
     let msg = {
         username: req.session.username,
     }
     res.render('publish', msg);
 })
 
-router.post('/', (req, res) => {
+router.post('/',  (req, res) => {
 
     let id = Date.now();
     let date = format(id, 'yyyy-mm-dd HH:MM:ss');

@@ -54,6 +54,7 @@ router.post('/', (req, res) => {
         }
 
         req.session.username = data.username;
+        req.session.role = data.role;
         msg.username = data.username;
         res.redirect('/');
     })
