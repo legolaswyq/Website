@@ -3,6 +3,7 @@ const assert = require('assert');
 const express = require('express');
 
 const middleware = require('./controllers/middleware');
+const methodOverride = require('method-override');
 
 
 //init app
@@ -30,6 +31,8 @@ app.use('/publish', publish);
 //your article
 const yourArticles = require('./routers/yourArticles')
 app.use('/yourArticles', yourArticles);
+//method override
+app.use(methodOverride('_method'));
 
 //listen to port 3000
 app.listen(3000, (err) => {

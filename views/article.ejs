@@ -15,8 +15,8 @@
             <div class="author"><h5><%= article.username %></h5></div>
             <div class="date"><%= article.date %></div>
             <div class="hide">
-                <a href="" class="m-3">Modify</a>
-                <a href="">Delete</a>
+                <a href="/yourArticles/modify/<%= article.id %> " class="m-3">Modify</a>
+                <a href="/yourArticles/delete/<%= article.id %> ">Delete</a>
             </div>
         </div>
         <br>
