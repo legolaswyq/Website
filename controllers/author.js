@@ -1,14 +1,11 @@
 const ArticleModel = require('../models/article');
 
-
-
 function requireLogin(req, res, next) {
     if (req.session.username == null) {
         res.status(401);
         res.send("need login");
         return;
     }
-
     next();
 }
 

@@ -5,69 +5,34 @@ A website for practise
 
 
 
-需求1.0 版本
+Design:
 
+1. Register page
+   1. username, email, password
+   2. valify data
+      1. at least 6 character not null 
+      2. email format using regex 
+      4. password using md5
+2. Login page
+   1. input username and password
+   2. look up data in database
+   3. show welcome info and redirect to home page
+   4. if login fail send error message and redirect to login page
+3. Home
+   1. Publish function
+   2. View other article
+   4. Delete and modify
+   4. view article of yours
+4. Logic
+   1. Authority  admin
+2. common
+   3. different menu base on different authority
+4. If the username is different from the author, then they could not modify the article 
+   5. Using middleware to detect if the author is equal to username
+6. When first login, the website will record the lastest article as start point, so the list of article won't auto refresh. It means when someone else was publish a new article, it won't affect your list only when you click the home button, it will refrest the whole list
+   7. Pagination, each page only show 10 article, First look up how many article in the database  to calculate how many page we need, if larger than 10 page will only show 10, each page display 10 articles.
 
+ 5.Database
 
-![image-20200901153306220](C:\Users\walter\AppData\Roaming\Typora\typora-user-images\image-20200901153306220.png)
-
-![image-20200901153314575](C:\Users\walter\AppData\Roaming\Typora\typora-user-images\image-20200901153314575.png)
-
-
-
-
-
-设计:
-
-1. 注册页面
-   1. 接受姓名,email,密码
-   2. 验证数据 
-      1. 名字至少6个字符以上,不能重复,非空(完成)
-      2. email格式 用regex验证(完成)
-      4. 密码用md5加密(完成)
-2. 登录页面
-   1. 输入名字和密码(完成)
-   2. 再数据库中查找若匹配登录成功(完成)
-   3. 登录成功显示欢迎信息,跳转主页面(完成)
-   4. 登录失败发送错误信息,转回登录页面(完成)
-3. 主页面
-   1. 发布框,发布按钮(完成)
-   2. 其他人发布的信息(完成)
-   3. 点赞按钮
-   4. 删除按钮
-4. 业务逻辑
-   1. 登录权限
-
-   2. 一般权限
-
-   3. 管理员权限
-
-   4. 还有你回头把权限弄一下，给你一个思路，比如，
-
-      用户有一个角色，common角色，有article-view,article-publish的权限；
-
-      manager角色，有article-view,article-publish,article-delete的权限。
-
-      这是最简单的一个用户有一个角色的模型。操作权限根据角色来决定。
-
-      当然，扩展的话，一个用户可以有多个角色，每个角色的权限都是可以配置的，比如你今天可以在数据库里面给某个角色加一个article-delete的权限。
-
-      然后，每个权限，对应某个页面的元素控制，
-
-      ​	比如，你页面要判断当前用户是否有article-delete权限，才会给他显示delete的button
-
-
-
-
-
-
-
-
-
-改进
-
-1. 创建账户时,可在数据库设置主键,先插入若主键冲突再弹错误.
-   1. 把http表单提交改成js里面做表单提交或者做ajax请求吧，这样你就可以前端先处理了数据再交互到后台，这样就可以避免密码明文传输了
-2. 表单密码是明文,得改
-3. 查询的起始位置固定(已完成)
-   1. 给你一个思路，我每一个用户，从第一页开始读的时候，你知道我是从哪一条开始读的，那我每次下一页，都从那一条算
+	1.  There are two form, one  for account and one for article
+ 	2.  In the account form, username was set as unique key and when someone insert a new account if there is not same username it will be success, otherwise it will sent an error message

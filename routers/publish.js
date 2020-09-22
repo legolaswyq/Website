@@ -14,7 +14,7 @@ router.get('/',requireLogin, (req, res) => {
 
 router.post('/',  (req, res) => {
 
-    let id = Date.now();
+    let id = Date.now(); //type number
     let date = format(id, 'yyyy-mm-dd HH:MM:ss');
     let data = {
         username: req.session.username,
